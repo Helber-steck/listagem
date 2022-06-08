@@ -1,7 +1,6 @@
 # listagem
 
-Projeto listagem fixa
-Buscando dados fixos
+Projeto listagem buscando dados fixos
 
 
 ## Getting Started
