@@ -48,68 +48,52 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  List<Contato> contatos =[];
+
+  @override
+   void initState() {
+    super.initState();
+    contatos.add(Contato(
+         nome: "Helber", telefone: "98876-2200", tipo: ContatoType.TRABALHO));
+
+    contatos.add(Contato(
+         nome: "Deyse", telefone: "98876-4400", tipo: ContatoType.CELULAR));
+
+    contatos.add(Contato(
+         nome: "Heitor", telefone: "98876-3300", tipo: ContatoType.FAVORITO));
+
+    contatos.add(Contato(
+         nome: "Mack", telefone: "98876-0000", tipo: ContatoType.CASA));
+        contatos.sort((a,b) => a.nome.compareTo(b.nome));
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
+        body: ListView.separated(
+            itemBuilder: (context, index) {
+              var contato = contatos[index];
+              return ListTile (
+                title: Text(contato.nome),
+                subtitle: Text (contato.telefone),
+              );
+            },
+            separatorBuilder:(context, index)=>Divider(),
+            itemCount: contatos.length));
+    }
 }
+
+
+class Contato {
+  final String nome;
+  final String telefone;
+  final ContatoType tipo;
+
+  Contato({required this.nome, required this.telefone, required this.tipo});
+}
+
+
+enum ContatoType {CELULAR, TRABALHO, FAVORITO, CASA}
+
