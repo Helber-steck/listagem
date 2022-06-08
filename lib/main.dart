@@ -49,6 +49,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  // Cria a lista de contatos
   List<Contato> contatos =[];
 
   @override
@@ -72,12 +73,21 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      // ListView recebe e o componete separated separa a lista
         body: ListView.separated(
             itemBuilder: (context, index) {
               var contato = contatos[index];
+              //ListTile adiciona parametros a lista
               return ListTile (
+                leading: CircleAvatar(
+                  child:ContatoHelper.getIconByContatoType(contato.tipo),
+                  backgroundColor: Colors.blue[200],),
                 title: Text(contato.nome),
                 subtitle: Text (contato.telefone),
+                trailing: IconButton(
+                  icon: Icon(Icons.call),
+                  onPressed: () => {},
+                ),
               );
             },
             separatorBuilder:(context, index)=>Divider(),
